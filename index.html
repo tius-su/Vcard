@@ -3,16 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Card v11.0 - Enterprise Branding</title>
+    
+    <title>Digital Business Card - Professional Edition</title>
+    <meta name="description" content="Simpan kontak dan hubungi saya melalui kartu nama digital profesional ini.">
+    <meta property="og:title" content="Digital Business Card">
+    <meta property="og:description" content="Klik untuk melihat profil profesional dan simpan kontak secara otomatis.">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=Digital+Card"> <meta property="og:type" content="website">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <style>
         body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
         .card-vertical { width: 450px; min-height: 900px; background: white; border-radius: 2.5rem; overflow: hidden; }
         
+        /* Gaya Baris Info Anti-Terpotong */
         .info-row { 
             display: flex; align-items: center; padding: 10px 14px; 
             background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0; 
@@ -20,21 +28,26 @@
         }
         .info-label { 
             font-size: 11px; font-weight: 700; color: #1e293b; 
-            margin-left: 10px; word-break: break-word; line-height: 1.2;
+            margin-left: 10px; word-break: break-all; line-height: 1.2;
         }
         .icon-box { width: 24px; flex-shrink: 0; display: flex; justify-content: center; }
         
-        /* Pencegahan teks input di editor agar tidak aneh */
-        input::placeholder { color: #cbd5e1; font-weight: normal; }
+        /* Editor Scrollbar */
+        .custom-scroll::-webkit-scrollbar { width: 5px; }
+        .custom-scroll::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
     </style>
 </head>
-<body class="bg-[#0f172a] min-h-screen p-4 flex justify-center items-start">
+<body class="bg-slate-900 min-h-screen p-4 flex justify-center items-start">
 
-    <div class="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <div class="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 mb-10">
         
-        <div class="lg:col-span-4 bg-white p-6 rounded-[2rem] shadow-2xl self-start">
-            <h2 class="text-xl font-black mb-4 border-b pb-2 text-slate-800">Branding Editor v11</h2>
-            <div class="space-y-4 max-h-[80vh] overflow-y-auto pr-2">
+        <div class="lg:col-span-4 bg-white p-6 rounded-[2.5rem] shadow-2xl self-start">
+            <h2 class="text-xl font-black mb-4 border-b pb-2 text-slate-800 flex items-center">
+                <i class="fas fa-edit mr-2 text-indigo-600"></i> Editor v12.0
+            </h2>
+            
+            <div class="space-y-4 max-h-[80vh] overflow-y-auto pr-2 custom-scroll">
                 
                 <div class="grid grid-cols-2 gap-2">
                     <div class="space-y-1">
@@ -47,8 +60,8 @@
                     </div>
                 </div>
 
-                <div class="bg-slate-50 p-3 rounded-xl border-2 border-dashed">
-                    <label class="text-[10px] font-bold text-slate-500 uppercase">Foto Profil Anda</label>
+                <div class="bg-indigo-50 p-3 rounded-xl border-2 border-dashed border-indigo-200">
+                    <label class="text-[10px] font-bold text-indigo-600 uppercase">Foto Profil</label>
                     <input type="file" id="uploadPhoto" accept="image/*" onchange="previewPhoto()" class="text-[10px] w-full mt-1">
                 </div>
                 
@@ -62,15 +75,15 @@
                 </div>
 
                 <div class="grid grid-cols-2 gap-2">
-                    <input type="number" id="inWA1" oninput="updateCard()" placeholder="WA 1 (62...)" class="p-2.5 border rounded-lg text-xs">
-                    <input type="number" id="inWA2" oninput="updateCard()" placeholder="WA 2 (62...)" class="p-2.5 border rounded-lg text-xs">
+                    <input type="number" id="inWA1" oninput="updateCard()" placeholder="WA Utama (62...)" class="p-2.5 border rounded-lg text-xs">
+                    <input type="number" id="inWA2" oninput="updateCard()" placeholder="WA Kedua" class="p-2.5 border rounded-lg text-xs">
                 </div>
 
-                <input type="email" id="inEmail" oninput="updateCard()" placeholder="Email" class="w-full p-2.5 border rounded-lg text-xs">
+                <input type="email" id="inEmail" oninput="updateCard()" placeholder="Alamat Email" class="w-full p-2.5 border rounded-lg text-xs">
                 <input type="text" id="inWeb" oninput="updateCard()" placeholder="Website (www.situs.com)" class="w-full p-2.5 border rounded-lg text-xs">
                 
-                <div class="grid grid-cols-2 gap-2 border-t pt-2">
-                    <input type="text" id="inIG" oninput="updateCard()" placeholder="IG Username" class="p-2.5 border rounded-lg text-xs">
+                <div class="grid grid-cols-2 gap-2 border-t pt-4">
+                    <input type="text" id="inIG" oninput="updateCard()" placeholder="Instagram ID" class="p-2.5 border rounded-lg text-xs">
                     <input type="text" id="inLI" oninput="updateCard()" placeholder="LinkedIn ID" class="p-2.5 border rounded-lg text-xs">
                     <input type="text" id="inFB" oninput="updateCard()" placeholder="Facebook ID" class="p-2.5 border rounded-lg text-xs">
                     <input type="text" id="inTT" oninput="updateCard()" placeholder="TikTok ID" class="p-2.5 border rounded-lg text-xs">
@@ -81,54 +94,65 @@
         <div class="lg:col-span-8 flex flex-col items-center">
             <div id="card-area" class="card-vertical shadow-2xl flex flex-col">
                 
-                <div id="headerBg" class="p-8 pb-28 flex transition-all duration-500 text-white relative">
+                <div id="headerBg" class="p-8 pb-32 flex transition-all duration-500 text-white relative">
                     <div class="flex items-start w-full gap-4">
-                        <div class="w-16 h-16 bg-white/20 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center p-1 backdrop-blur-sm">
+                        <div class="w-20 h-20 bg-white/20 rounded-2xl overflow-hidden flex-shrink-0 flex items-center justify-center p-2 backdrop-blur-md border border-white/30">
                             <img id="dispLogo" src="https://cdn-icons-png.flaticon.com/512/1022/1022315.png" class="max-w-full max-h-full object-contain">
                         </div>
                         <div class="flex flex-col text-left">
-                            <h3 id="dispCorp" class="text-lg font-extrabold tracking-wider leading-tight uppercase">PT. NAMA PERUSAHAAN</h3>
-                            <p id="dispCorpDetail" class="text-[9px] mt-1 opacity-80 leading-relaxed font-medium">Alamat Lengkap Perusahaan</p>
+                            <h3 id="dispCorp" class="text-xl font-extrabold tracking-wider leading-tight uppercase">PT. NAMA PERUSAHAAN</h3>
+                            <p id="dispCorpDetail" class="text-[10px] mt-2 opacity-80 leading-relaxed font-medium">Alamat Lengkap Perusahaan</p>
                         </div>
                     </div>
                 </div>
 
-                <div id="bodyLayout" class="flex flex-col flex-grow p-10 items-center bg-white relative">
-                    <div class="relative -mt-24 mb-6">
-                        <img id="dispPhoto" src="https://ui-avatars.com/api/?name=User&background=random" class="w-36 h-36 rounded-full border-[8px] border-white shadow-2xl object-cover bg-white">
+                <div class="flex flex-col flex-grow p-10 items-center bg-white relative">
+                    <div class="relative -mt-28 mb-6">
+                        <img id="dispPhoto" src="https://ui-avatars.com/api/?name=User&background=random" class="w-40 h-40 rounded-full border-[10px] border-white shadow-2xl object-cover bg-white">
                     </div>
 
-                    <div class="text-center mb-8">
+                    <div class="text-center mb-10">
                         <h2 id="dispNama" class="text-3xl font-black text-slate-800 tracking-tight uppercase leading-none">FULL NAME</h2>
-                        <p id="dispJabatan" class="font-bold text-[11px] tracking-[0.4em] uppercase mt-3 text-slate-400">POSITION TITLE</p>
+                        <p id="dispJabatan" class="font-bold text-[11px] tracking-[0.5em] uppercase mt-4 text-slate-400">POSITION TITLE</p>
+                        <div id="accentLine" class="w-12 h-1.5 bg-slate-800 mx-auto mt-6 rounded-full opacity-20"></div>
                     </div>
 
                     <div class="w-full space-y-2 mb-6">
                         <div class="grid grid-cols-2 gap-3">
-                            <div class="info-row"><div class="icon-box"><i class="fab fa-whatsapp text-green-500 text-lg"></i></div><span id="dispWA1" class="info-label">-</span></div>
-                            <div class="info-row"><div class="icon-box"><i class="fab fa-whatsapp text-emerald-500 text-lg"></i></div><span id="dispWA2" class="info-label">-</span></div>
+                            <div class="info-row"><div class="icon-box"><i class="fab fa-whatsapp text-green-500 text-xl"></i></div><span id="dispWA1" class="info-label">-</span></div>
+                            <div class="info-row"><div class="icon-box"><i class="fab fa-whatsapp text-emerald-500 text-xl"></i></div><span id="dispWA2" class="info-label">-</span></div>
                         </div>
-                        <div class="info-row"><div class="icon-box"><i class="far fa-envelope text-blue-500 text-lg"></i></div><span id="dispEmail" class="info-label">-</span></div>
-                        <div class="info-row"><div class="icon-box"><i class="fas fa-globe text-indigo-500 text-lg"></i></div><span id="dispWeb" class="info-label">-</span></div>
+                        <div class="info-row"><div class="icon-box"><i class="far fa-envelope text-blue-500 text-xl"></i></div><span id="dispEmail" class="info-label">-</span></div>
+                        <div class="info-row"><div class="icon-box"><i class="fas fa-globe text-indigo-500 text-xl"></i></div><span id="dispWeb" class="info-label">-</span></div>
                     </div>
 
-                    <div class="w-full grid grid-cols-2 gap-3 mb-8">
-                        <div class="info-row"><div class="icon-box"><i class="fab fa-instagram text-pink-500 text-lg"></i></div><span id="dispIG" class="info-label">-</span></div>
-                        <div class="info-row"><div class="icon-box"><i class="fab fa-linkedin text-blue-700 text-lg"></i></div><span id="dispLI" class="info-label">-</span></div>
-                        <div class="info-row"><div class="icon-box"><i class="fab fa-facebook text-blue-600 text-lg"></i></div><span id="dispFB" class="info-label">-</span></div>
-                        <div class="info-row"><div class="icon-box"><i class="fab fa-tiktok text-black text-lg"></i></div><span id="dispTT" class="info-label">-</span></div>
+                    <div class="w-full grid grid-cols-2 gap-3 mb-10">
+                        <div class="info-row"><div class="icon-box"><i class="fab fa-instagram text-pink-500 text-xl"></i></div><span id="dispIG" class="info-label">-</span></div>
+                        <div class="info-row"><div class="icon-box"><i class="fab fa-linkedin text-blue-700 text-xl"></i></div><span id="dispLI" class="info-label">-</span></div>
+                        <div class="info-row"><div class="icon-box"><i class="fab fa-facebook text-blue-600 text-xl"></i></div><span id="dispFB" class="info-label">-</span></div>
+                        <div class="info-row"><div class="icon-box"><i class="fab fa-tiktok text-black text-xl"></i></div><span id="dispTT" class="info-label">-</span></div>
                     </div>
 
                     <div class="mt-auto flex flex-col items-center">
-                        <div id="qrcode" class="p-2 border-2 border-slate-50 rounded-2xl bg-white shadow-sm"></div>
+                        <div id="qrcode" class="p-3 border-4 border-slate-50 rounded-[2rem] bg-white shadow-sm"></div>
+                        <p class="text-[8px] mt-3 font-bold text-slate-300 tracking-[0.3em] uppercase">Scan Digital Card</p>
                     </div>
                 </div>
             </div>
 
-            <div class="mt-10 flex flex-wrap gap-4 justify-center pb-20">
-                <button onclick="saveCardHD()" class="bg-indigo-600 text-white px-10 py-4 rounded-2xl font-black text-xs tracking-widest shadow-2xl hover:bg-black transition-all uppercase">Download PNG HD</button>
-                <button onclick="downloadVCard()" class="bg-slate-800 text-white px-10 py-4 rounded-2xl font-black text-xs tracking-widest shadow-2xl hover:bg-black transition-all uppercase">Save Contact</button>
-                <button onclick="shareWhatsApp()" class="bg-green-500 text-white px-10 py-4 rounded-2xl font-black text-xs tracking-widest shadow-2xl hover:bg-green-600 transition-all uppercase">Share WA</button>
+            <div class="mt-10 flex flex-wrap gap-4 justify-center">
+                <button onclick="saveCardHD()" class="bg-indigo-600 text-white px-8 py-4 rounded-2xl font-black text-[10px] tracking-widest shadow-xl hover:bg-black transition-all uppercase">
+                    <i class="fas fa-download mr-1"></i> PNG HD
+                </button>
+                <button onclick="copyCardToClipboard()" class="bg-blue-600 text-white px-8 py-4 rounded-2xl font-black text-[10px] tracking-widest shadow-xl hover:bg-black transition-all uppercase">
+                    <i class="fas fa-copy mr-1"></i> Copy Image
+                </button>
+                <button onclick="downloadVCard()" class="bg-slate-800 text-white px-8 py-4 rounded-2xl font-black text-[10px] tracking-widest shadow-xl hover:bg-black transition-all uppercase">
+                    <i class="fas fa-user-plus mr-1"></i> Save VCF
+                </button>
+                <button onclick="shareWhatsApp()" class="bg-green-500 text-white px-8 py-4 rounded-2xl font-black text-[10px] tracking-widest shadow-xl hover:bg-green-600 transition-all uppercase">
+                    <i class="fab fa-whatsapp mr-1"></i> Share
+                </button>
             </div>
         </div>
     </div>
@@ -165,8 +189,8 @@
             const d = {};
             inputs.forEach(id => { d[id] = document.getElementById(id).value; localStorage.setItem(id, d[id]); });
 
-            document.getElementById('dispCorp').innerText = d.inCorp || "PT. PERUSAHAAN ANDA";
-            document.getElementById('dispCorpDetail').innerText = d.inCorpDetail || "Alamat Perusahaan Lengkap";
+            document.getElementById('dispCorp').innerText = d.inCorp || "PT. NAMA PERUSAHAAN";
+            document.getElementById('dispCorpDetail').innerText = d.inCorpDetail || "Alamat Perusahaan";
             document.getElementById('dispNama').innerText = d.inNama || "NAMA LENGKAP";
             document.getElementById('dispJabatan').innerText = d.inJabatan || "JABATAN";
             
@@ -185,18 +209,28 @@
 
             const qrBox = document.getElementById("qrcode");
             qrBox.innerHTML = "";
-            new QRCode(qrBox, { text: d.inWeb || `https://wa.me/${d.inWA1}`, width: 110, height: 110, colorDark: color });
+            new QRCode(qrBox, { text: d.inWeb || `https://wa.me/${d.inWA1}`, width: 120, height: 120, colorDark: color });
         }
 
         async function saveCardHD() {
             const element = document.getElementById('card-area');
-            const canvas = await html2canvas(element, { 
-                scale: 5, useCORS: true, backgroundColor: "#ffffff"
-            });
+            const canvas = await html2canvas(element, { scale: 5, useCORS: true, backgroundColor: "#ffffff" });
             const link = document.createElement('a');
-            link.download = `BusinessCard_Premium_v11.png`;
+            link.download = `DigitalCard_${document.getElementById('inNama').value}.png`;
             link.href = canvas.toDataURL("image/png", 1.0);
             link.click();
+        }
+
+        async function copyCardToClipboard() {
+            const element = document.getElementById('card-area');
+            try {
+                const canvas = await html2canvas(element, { scale: 3, useCORS: true });
+                canvas.toBlob(async (blob) => {
+                    const item = new ClipboardItem({ "image/png": blob });
+                    await navigator.clipboard.write([item]);
+                    alert("Gambar kartu nama disalin! Silakan langsung 'Paste' di WhatsApp.");
+                });
+            } catch (err) { alert("Browser Anda belum mendukung fitur salin gambar langsung."); }
         }
 
         function downloadVCard() {
@@ -212,8 +246,7 @@
         }
 
         function shareWhatsApp() {
-            const nama = document.getElementById('inNama').value;
-            const text = `Halo, perkenalkan saya ${nama}. Berikut kartu nama digital saya: ${document.getElementById('inWeb').value}`;
+            const text = `Halo, perkenalkan saya ${document.getElementById('inNama').value}. Simpan kontak saya di sini: ${document.getElementById('inWeb').value}`;
             window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
         }
     </script>
