@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Digital Card v10.1 - AutoFit</title>
+    <title>Professional Card v11.0 - Enterprise Branding</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -12,65 +11,66 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
-        .card-vertical { width: 450px; min-height: 880px; background: white; }
-        .card-horizontal { width: 780px; min-height: 480px; background: white; }
+        .card-vertical { width: 450px; min-height: 900px; background: white; border-radius: 2.5rem; overflow: hidden; }
         
-        /* Perbaikan Baris Info agar Tidak Terpotong */
         .info-row { 
-            display: flex; 
-            align-items: center; 
-            padding: 8px 14px; 
-            background: #f8fafc; 
-            border-radius: 12px; 
-            border: 1px solid #e2e8f0; 
-            margin-bottom: 6px;
-            width: 100%;
-            min-width: 0; /* Penting untuk flex-child */
+            display: flex; align-items: center; padding: 10px 14px; 
+            background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0; 
+            margin-bottom: 6px; width: 100%; min-width: 0;
         }
         .info-label { 
-            font-size: 10px; 
-            font-weight: 700; 
-            color: #334155; 
-            margin-left: 10px; 
-            word-break: break-all; /* Membungkus teks jika terlalu panjang */
-            line-height: 1.2;
+            font-size: 11px; font-weight: 700; color: #1e293b; 
+            margin-left: 10px; word-break: break-word; line-height: 1.2;
         }
-        .icon-box { width: 20px; display: flex; justify-content: center; flex-shrink: 0; }
+        .icon-box { width: 24px; flex-shrink: 0; display: flex; justify-content: center; }
+        
+        /* Pencegahan teks input di editor agar tidak aneh */
+        input::placeholder { color: #cbd5e1; font-weight: normal; }
     </style>
 </head>
-<body class="bg-slate-900 min-h-screen p-4 flex justify-center items-start">
+<body class="bg-[#0f172a] min-h-screen p-4 flex justify-center items-start">
 
     <div class="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
         
         <div class="lg:col-span-4 bg-white p-6 rounded-[2rem] shadow-2xl self-start">
-            <h2 class="text-xl font-black mb-4 border-b pb-2 text-slate-800">Card Editor v10.1</h2>
-            <div class="space-y-3 max-h-[80vh] overflow-y-auto pr-2">
-                <div class="grid grid-cols-2 gap-2">
-                    <select onchange="setMode(this.value)" class="p-2 border rounded-xl text-xs font-bold outline-none">
-                        <option value="vertical">Vertikal</option>
-                        <option value="horizontal">Horizontal</option>
-                    </select>
-                    <input type="color" id="inColor" oninput="updateCard()" value="#1e293b" class="w-full h-10 border rounded-xl cursor-pointer">
-                </div>
-                <div class="bg-slate-50 p-3 rounded-xl border border-dashed border-slate-300">
-                    <input type="file" id="uploadPhoto" accept="image/*" onchange="previewFile()" class="text-[10px] w-full">
-                </div>
-                
-                <input type="text" id="inCorp" oninput="updateCard()" placeholder="Nama Perusahaan" class="w-full p-2.5 border rounded-lg text-xs outline-blue-500">
-                <input type="text" id="inCorpDetail" oninput="updateCard()" placeholder="Alamat Kantor Lengkap" class="w-full p-2.5 border rounded-lg text-xs outline-blue-500">
+            <h2 class="text-xl font-black mb-4 border-b pb-2 text-slate-800">Branding Editor v11</h2>
+            <div class="space-y-4 max-h-[80vh] overflow-y-auto pr-2">
                 
                 <div class="grid grid-cols-2 gap-2">
-                    <input type="text" id="inNama" oninput="updateCard()" placeholder="Nama" class="p-2.5 border rounded-lg text-xs font-bold">
-                    <input type="text" id="inJabatan" oninput="updateCard()" placeholder="Jabatan" class="p-2.5 border rounded-lg text-xs">
-                    <input type="number" id="inWA1" oninput="updateCard()" placeholder="WhatsApp 1" class="p-2.5 border rounded-lg text-xs">
-                    <input type="number" id="inWA2" oninput="updateCard()" placeholder="WhatsApp 2" class="p-2.5 border rounded-lg text-xs">
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold text-slate-400 uppercase">Warna Tema</label>
+                        <input type="color" id="inColor" oninput="updateCard()" value="#1e293b" class="w-full h-10 border rounded-xl cursor-pointer">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold text-slate-400 uppercase">Logo Perusahaan</label>
+                        <input type="file" id="uploadLogo" accept="image/*" onchange="previewLogo()" class="text-[10px] w-full border p-1 rounded-lg">
+                    </div>
                 </div>
 
-                <input type="email" id="inEmail" oninput="updateCard()" placeholder="Alamat Email" class="w-full p-2.5 border rounded-lg text-xs">
-                <input type="text" id="inWeb" oninput="updateCard()" placeholder="Website (Contoh: www.perusahaan.com)" class="w-full p-2.5 border rounded-lg text-xs">
+                <div class="bg-slate-50 p-3 rounded-xl border-2 border-dashed">
+                    <label class="text-[10px] font-bold text-slate-500 uppercase">Foto Profil Anda</label>
+                    <input type="file" id="uploadPhoto" accept="image/*" onchange="previewPhoto()" class="text-[10px] w-full mt-1">
+                </div>
+                
+                <div class="space-y-2">
+                    <input type="text" id="inCorp" oninput="updateCard()" placeholder="Nama Perusahaan" class="w-full p-2.5 border rounded-lg text-xs">
+                    <input type="text" id="inCorpDetail" oninput="updateCard()" placeholder="Alamat Perusahaan" class="w-full p-2.5 border rounded-lg text-xs">
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="text" id="inNama" oninput="updateCard()" placeholder="Nama Anda" class="p-2.5 border rounded-lg text-xs font-bold">
+                        <input type="text" id="inJabatan" oninput="updateCard()" placeholder="Jabatan" class="p-2.5 border rounded-lg text-xs">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="number" id="inWA1" oninput="updateCard()" placeholder="WA 1 (62...)" class="p-2.5 border rounded-lg text-xs">
+                    <input type="number" id="inWA2" oninput="updateCard()" placeholder="WA 2 (62...)" class="p-2.5 border rounded-lg text-xs">
+                </div>
+
+                <input type="email" id="inEmail" oninput="updateCard()" placeholder="Email" class="w-full p-2.5 border rounded-lg text-xs">
+                <input type="text" id="inWeb" oninput="updateCard()" placeholder="Website (www.situs.com)" class="w-full p-2.5 border rounded-lg text-xs">
                 
                 <div class="grid grid-cols-2 gap-2 border-t pt-2">
-                    <input type="text" id="inIG" oninput="updateCard()" placeholder="IG: username" class="p-2.5 border rounded-lg text-xs">
+                    <input type="text" id="inIG" oninput="updateCard()" placeholder="IG Username" class="p-2.5 border rounded-lg text-xs">
                     <input type="text" id="inLI" oninput="updateCard()" placeholder="LinkedIn ID" class="p-2.5 border rounded-lg text-xs">
                     <input type="text" id="inFB" oninput="updateCard()" placeholder="Facebook ID" class="p-2.5 border rounded-lg text-xs">
                     <input type="text" id="inTT" oninput="updateCard()" placeholder="TikTok ID" class="p-2.5 border rounded-lg text-xs">
@@ -79,11 +79,18 @@
         </div>
 
         <div class="lg:col-span-8 flex flex-col items-center">
-            <div id="card-area" class="card-vertical shadow-2xl flex flex-col rounded-[2.5rem] overflow-hidden bg-white">
+            <div id="card-area" class="card-vertical shadow-2xl flex flex-col">
                 
-                <div id="headerBg" class="p-10 pb-28 text-center text-white min-h-[200px] flex flex-col justify-start">
-                    <h3 id="dispCorp" class="text-xl font-extrabold tracking-[0.15em] uppercase leading-tight">COMPANY NAME</h3>
-                    <p id="dispCorpDetail" class="text-[10px] mt-4 opacity-90 max-w-[85%] mx-auto font-medium leading-relaxed">Official Office Address</p>
+                <div id="headerBg" class="p-8 pb-28 flex transition-all duration-500 text-white relative">
+                    <div class="flex items-start w-full gap-4">
+                        <div class="w-16 h-16 bg-white/20 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center p-1 backdrop-blur-sm">
+                            <img id="dispLogo" src="https://cdn-icons-png.flaticon.com/512/1022/1022315.png" class="max-w-full max-h-full object-contain">
+                        </div>
+                        <div class="flex flex-col text-left">
+                            <h3 id="dispCorp" class="text-lg font-extrabold tracking-wider leading-tight uppercase">PT. NAMA PERUSAHAAN</h3>
+                            <p id="dispCorpDetail" class="text-[9px] mt-1 opacity-80 leading-relaxed font-medium">Alamat Lengkap Perusahaan</p>
+                        </div>
+                    </div>
                 </div>
 
                 <div id="bodyLayout" class="flex flex-col flex-grow p-10 items-center bg-white relative">
@@ -92,14 +99,14 @@
                     </div>
 
                     <div class="text-center mb-8">
-                        <h2 id="dispNama" class="text-3xl font-black text-slate-800 tracking-tight leading-none uppercase">FULL NAME</h2>
+                        <h2 id="dispNama" class="text-3xl font-black text-slate-800 tracking-tight uppercase leading-none">FULL NAME</h2>
                         <p id="dispJabatan" class="font-bold text-[11px] tracking-[0.4em] uppercase mt-3 text-slate-400">POSITION TITLE</p>
                     </div>
 
                     <div class="w-full space-y-2 mb-6">
                         <div class="grid grid-cols-2 gap-3">
-                            <div class="info-row"><div class="icon-box"><i class="fab fa-whatsapp text-green-500"></i></div><span id="dispWA1" class="info-label">-</span></div>
-                            <div class="info-row"><div class="icon-box"><i class="fab fa-whatsapp text-emerald-500"></i></div><span id="dispWA2" class="info-label">-</span></div>
+                            <div class="info-row"><div class="icon-box"><i class="fab fa-whatsapp text-green-500 text-lg"></i></div><span id="dispWA1" class="info-label">-</span></div>
+                            <div class="info-row"><div class="icon-box"><i class="fab fa-whatsapp text-emerald-500 text-lg"></i></div><span id="dispWA2" class="info-label">-</span></div>
                         </div>
                         <div class="info-row"><div class="icon-box"><i class="far fa-envelope text-blue-500 text-lg"></i></div><span id="dispEmail" class="info-label">-</span></div>
                         <div class="info-row"><div class="icon-box"><i class="fas fa-globe text-indigo-500 text-lg"></i></div><span id="dispWeb" class="info-label">-</span></div>
@@ -112,15 +119,15 @@
                         <div class="info-row"><div class="icon-box"><i class="fab fa-tiktok text-black text-lg"></i></div><span id="dispTT" class="info-label">-</span></div>
                     </div>
 
-                    <div class="mt-auto pt-4 flex flex-col items-center">
+                    <div class="mt-auto flex flex-col items-center">
                         <div id="qrcode" class="p-2 border-2 border-slate-50 rounded-2xl bg-white shadow-sm"></div>
                     </div>
                 </div>
             </div>
 
-            <div class="mt-8 flex flex-wrap gap-4 justify-center pb-10">
+            <div class="mt-10 flex flex-wrap gap-4 justify-center pb-20">
                 <button onclick="saveCardHD()" class="bg-indigo-600 text-white px-10 py-4 rounded-2xl font-black text-xs tracking-widest shadow-2xl hover:bg-black transition-all uppercase">Download PNG HD</button>
-                <button onclick="downloadVCard()" class="bg-slate-800 text-white px-10 py-4 rounded-2xl font-black text-xs tracking-widest shadow-2xl hover:bg-black transition-all uppercase">vCard</button>
+                <button onclick="downloadVCard()" class="bg-slate-800 text-white px-10 py-4 rounded-2xl font-black text-xs tracking-widest shadow-2xl hover:bg-black transition-all uppercase">Save Contact</button>
                 <button onclick="shareWhatsApp()" class="bg-green-500 text-white px-10 py-4 rounded-2xl font-black text-xs tracking-widest shadow-2xl hover:bg-green-600 transition-all uppercase">Share WA</button>
             </div>
         </div>
@@ -134,40 +141,35 @@
                 const val = localStorage.getItem(id);
                 if (val) document.getElementById(id).value = val;
             });
-            const savedPhoto = localStorage.getItem('profileImg');
-            if(savedPhoto) document.getElementById('dispPhoto').src = savedPhoto;
+            ['profileImg', 'logoImg'].forEach(key => {
+                const img = localStorage.getItem(key);
+                if(img) document.getElementById(key === 'profileImg' ? 'dispPhoto' : 'dispLogo').src = img;
+            });
             updateCard();
         };
 
-        function previewFile() {
-            const preview = document.getElementById('dispPhoto');
-            const file = document.getElementById('uploadPhoto').files[0];
-            const reader = new FileReader();
-            reader.onloadend = () => { preview.src = reader.result; localStorage.setItem('profileImg', reader.result); }
-            if (file) reader.readAsDataURL(file);
-        }
+        function previewPhoto() { handleImage('uploadPhoto', 'dispPhoto', 'profileImg'); }
+        function previewLogo() { handleImage('uploadLogo', 'dispLogo', 'logoImg'); }
 
-        function setMode(m) {
-            const card = document.getElementById('card-area');
-            const header = document.getElementById('headerBg');
-            if(m === 'horizontal') {
-                card.className = "card-horizontal shadow-2xl flex rounded-[2.5rem] overflow-hidden bg-white";
-                header.className = "w-1/3 p-10 text-center text-white flex flex-col justify-center";
-            } else {
-                card.className = "card-vertical shadow-2xl flex flex-col rounded-[2.5rem] overflow-hidden bg-white";
-                header.className = "p-10 pb-28 text-center text-white min-h-[200px] flex flex-col justify-start";
+        function handleImage(inputId, displayId, storageKey) {
+            const file = document.getElementById(inputId).files[0];
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                document.getElementById(displayId).src = reader.result;
+                localStorage.setItem(storageKey, reader.result);
             }
-            updateCard();
+            if (file) reader.readAsDataURL(file);
         }
 
         function updateCard() {
             const d = {};
             inputs.forEach(id => { d[id] = document.getElementById(id).value; localStorage.setItem(id, d[id]); });
 
-            document.getElementById('dispCorp').innerText = d.inCorp || "PT. NAMA PERUSAHAAN";
-            document.getElementById('dispCorpDetail').innerText = d.inCorpDetail || "Alamat Lengkap Perusahaan";
+            document.getElementById('dispCorp').innerText = d.inCorp || "PT. PERUSAHAAN ANDA";
+            document.getElementById('dispCorpDetail').innerText = d.inCorpDetail || "Alamat Perusahaan Lengkap";
             document.getElementById('dispNama').innerText = d.inNama || "NAMA LENGKAP";
-            document.getElementById('dispJabatan').innerText = d.inJabatan || "POSISI JABATAN";
+            document.getElementById('dispJabatan').innerText = d.inJabatan || "JABATAN";
+            
             document.getElementById('dispWA1').innerText = d.inWA1 || "-";
             document.getElementById('dispWA2').innerText = d.inWA2 || "-";
             document.getElementById('dispEmail').innerText = d.inEmail || "-";
@@ -188,17 +190,11 @@
 
         async function saveCardHD() {
             const element = document.getElementById('card-area');
-            // Memberikan skala 5 untuk ketajaman ultra
             const canvas = await html2canvas(element, { 
-                scale: 5, 
-                useCORS: true,
-                backgroundColor: "#ffffff",
-                logging: false,
-                width: element.offsetWidth,
-                height: element.offsetHeight
+                scale: 5, useCORS: true, backgroundColor: "#ffffff"
             });
             const link = document.createElement('a');
-            link.download = `ProfessionalCard_v10_1.png`;
+            link.download = `BusinessCard_Premium_v11.png`;
             link.href = canvas.toDataURL("image/png", 1.0);
             link.click();
         }
@@ -206,7 +202,7 @@
         function downloadVCard() {
             const d = {};
             inputs.forEach(id => d[id] = document.getElementById(id).value);
-            const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:${d.inNama}\nORG:${d.inCorp}\nTITLE:${d.inJabatan}\nTEL;TYPE=CELL:${d.inWA1}\nTEL;TYPE=WORK:${d.inWA2}\nEMAIL:${d.inEmail}\nURL:${d.inWeb}\nNOTE:IG: ${d.inIG}, LI: ${d.inLI}, FB: ${d.inFB}, TT: ${d.inTT}\nEND:VCARD`;
+            const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:${d.inNama}\nORG:${d.inCorp}\nTITLE:${d.inJabatan}\nTEL;TYPE=CELL:${d.inWA1}\nTEL;TYPE=WORK:${d.inWA2}\nEMAIL:${d.inEmail}\nURL:${d.inWeb}\nNOTE:IG:${d.inIG}, LI:${d.inLI}\nEND:VCARD`;
             const blob = new Blob([vcard], { type: "text/vcard" });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -216,7 +212,8 @@
         }
 
         function shareWhatsApp() {
-            const text = `Halo, saya ${document.getElementById('inNama').value}. Ini kartu nama digital saya: ${document.getElementById('inWeb').value}`;
+            const nama = document.getElementById('inNama').value;
+            const text = `Halo, perkenalkan saya ${nama}. Berikut kartu nama digital saya: ${document.getElementById('inWeb').value}`;
             window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
         }
     </script>
